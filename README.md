@@ -1,6 +1,4 @@
-<p align = "left">
-  <img src="finalLogo.svg" alt="SVG Image" style="width:50%;"/>
-</p>
+
 
 # `koopcore`: Learning LTI Predictors for Dynamical Systems using Koopman Kernels
 

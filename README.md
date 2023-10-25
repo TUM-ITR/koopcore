@@ -1,5 +1,5 @@
 <p align = "left">
-  <img src="finalLogo.svg" alt="SVG Image" style="width:50%;"/>
+  <img src="finalLogo.svg" alt="SVG Image" style="width:70%;"/>
 </p>
 
 # `koopcore`: Koopman Kernels for Learning Dynamical Systems from Time-Series Data

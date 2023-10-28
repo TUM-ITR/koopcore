@@ -1,5 +1,16 @@
+<p align = "center">
+  <img src="misc/under_construction.svg" alt="SVG Image" style="width:50%;"/>
+</p>
+
+# **COMING SOON!**
+
+
+
+
+
+
 <p align = "left">
-  <img src="finalLogo.svg" alt="SVG Image" style="width:70%;"/>
+  <img src="misc/finalLogo.svg" alt="SVG Image" style="width:50%;"/>
 </p>
 
 # `koopcore`: Koopman Kernels for Learning Dynamical Systems from Time-Series Data

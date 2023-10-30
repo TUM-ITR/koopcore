@@ -1,5 +1,5 @@
-<p align = "center">
-  <img src="misc/under_construction.svg" alt="SVG Image" style="width:70%;"/>
+<p align = "left">
+  <img src="misc/under_construction.svg" alt="SVG Image" style="width:20%;"/>
 </p>
 
 # **COMING SOON!**

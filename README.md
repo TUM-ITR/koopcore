@@ -1,5 +1,5 @@
 <p align = "left">
-  <img src="misc/finalLogo.svg" alt="SVG Image" style="width:60%;"/>
+  <img src="misc/finalLogo.svg" alt="SVG Image" style="width:80%;"/>
 </p>
 
 # `koopcore`: Koopman Kernels for Learning Dynamical Systems from Trajectory Data
@@ -25,7 +25,7 @@ in Neural Information Processing Systems*, 2023 [[arxiv]](https://arxiv.org/abs/
 ---
 
 
-If you found this implementation useful in your research, consider citing us.
+If you found this software useful for your research, consider citing us.
 ```
 @inproceedings{KKR_neurips2023,
   title = {Koopman Kernel Regression},

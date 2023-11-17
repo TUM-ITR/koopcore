@@ -21,7 +21,7 @@ def convert_ct_to_dt(e, dt=1.):
 def construct_multiindices(
     n: int, p_bar: int, verbose: bool = False
 ):
-    from kkr.auxilliary.monomials import mono_between_next_grevlex
+    from koopcore.auxilliary.monomials import mono_between_next_grevlex
     from scipy.special import binom
     """Generates multiindices based on the monomial toolbox by John Burkardt.
     https://people.sc.fsu.edu/~jburkardt/m_src/monomial/monomial.html (09.05.2022)

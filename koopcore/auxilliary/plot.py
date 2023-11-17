@@ -8,8 +8,8 @@ import os
 import warnings
 
 
-import kkr
-from kkr.auxilliary.data_classes import trajectory as trajectory
+import koopcore
+from koopcore.auxilliary.data_classes import trajectory as trajectory
 
 
 def get_subplots_fig_ax(fig_ax, **subplots_kwargs):
@@ -132,7 +132,7 @@ def plot_kernel_2d(
         ax = plt.gcf().add_subplot(111)
     else:
         ax = fig_ax_in[1][0, 0]
-    _ref = np.array(kkr.auxilliary.sample.sample_grid(
+    _ref = np.array(koopcore.auxilliary.sample.sample_grid(
         resolution, d, min_max, dtype)[0])
     _kref = jnp.flip(
         (np.array(kernel(center, _ref)).reshape(resolution, resolution)), 0)
@@ -173,7 +173,7 @@ def plot_gramian(gramian, prepend_tag=None, dir="results", save=False, close=Fal
 
 
 def plot_eigevalues(ev, ev_are_dt=True, dt=None, fig_ax=None, prepend_tag="", i_plot="all", dir="results", save=False, close=False):
-    import kkr.auxilliary.eigenvalues as eigenvalues
+    import koopcore.auxilliary.eigenvalues as eigenvalues
     import matplotlib.patches as plp
     ncols = (dt is not None) + 1
     f, a = get_subplots_fig_ax(fig_ax, nrows=1, ncols=ncols)

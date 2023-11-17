@@ -4,7 +4,7 @@ from jax import vmap, jit
 import matplotlib.pyplot as plt
 from timeit import default_timer as timer
 from typing import Literal
-import kkr
+import koopcore
 
 
 def make_kernel(kernel_name: Literal["square-exponential",
@@ -67,8 +67,8 @@ def main():
 
     Nit, Bit = 1000, 1
     N = Nit * Bit
-    x_data = jnp.array(kkr.sample.sample_box(N)[0])
-    x_data_2 = jnp.array(kkr.sample.sample_box(2000)[0])
+    x_data = jnp.array(koopcore.sample.sample_box(N)[0])
+    x_data_2 = jnp.array(koopcore.sample.sample_box(2000)[0])
 
     y_data = vmap(f_d)(x_data)
     y_data_2 = vmap(f_d)(x_data_2)

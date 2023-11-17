@@ -27,9 +27,9 @@ with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="Koopman-Kernel-Regression",
+    name="koopcore",
     version="0.1.0",
-    description="Functionalities for Koopman-Kernel-Regression",
+    description="Koopman Kernels for Learning Dynamical Systems from Trajectory Data",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),

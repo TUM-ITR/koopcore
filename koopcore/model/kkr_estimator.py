@@ -7,13 +7,13 @@ from typing import Tuple, Any, Callable, Union
 from jaxtyping import Num, Array
 from copy import deepcopy
 
-import kkr
-from kkr.jax.invariant_kernels import make_koopman_kernel
-from kkr.jax.explicit_invariant_kernels import koopman_kernel as koopman_kernel_expl
-from kkr.jax.explicit_invariant_kernels import (
+import koopcore
+from koopcore.jax.invariant_kernels import make_koopman_kernel
+from koopcore.jax.explicit_invariant_kernels import koopman_kernel as koopman_kernel_expl
+from koopcore.jax.explicit_invariant_kernels import (
     make_linear_trajectory_kernel as make_linear_trajectory_kernel_expl,
 )
-from kkr.auxilliary.data_classes import trajectory
+from koopcore.auxilliary.data_classes import trajectory
 
 
 class KoopmanKernelDTRegressor(MultiOutputMixin, RegressorMixin, BaseEstimator):
@@ -53,7 +53,7 @@ class KoopmanKernelDTRegressor(MultiOutputMixin, RegressorMixin, BaseEstimator):
         f_normalize = self.get_eigenvalue_normalizer()
 
         if not hasattr(self, "base_kernel"):
-            self.base_kernel = kkr.jax.make_kernel(
+            self.base_kernel = koopcore.jax.make_kernel(
                 self.kernel_name, **self.kernel_params
             )
         X = deepcopy(X)
@@ -82,11 +82,11 @@ class KoopmanKernelDTRegressor(MultiOutputMixin, RegressorMixin, BaseEstimator):
             (
                 invariant_weights,
                 regression_residuals,
-            ) = kkr.jax.fit_invariant_weights(
+            ) = koopcore.jax.fit_invariant_weights(
                 X_arr, y_arr, koopman_kernel["armin"], self.regularizer_invariant
             )
 
-            Phi, _ = kkr.jax.invariant_predictor(
+            Phi, _ = koopcore.jax.invariant_predictor(
                 X_arr,
                 X_arr,
                 invariant_weights,
@@ -96,7 +96,7 @@ class KoopmanKernelDTRegressor(MultiOutputMixin, RegressorMixin, BaseEstimator):
             )  # D x N x H x d
             Phi0 = Phi[:, :, 0, :]
             # fit isometric model
-            isometric_weights, regression_residuals = kkr.jax.fit_isometric_weights(
+            isometric_weights, regression_residuals = koopcore.jax.fit_isometric_weights(
                 Phi0,
                 X0_arr,
                 self.inducing_points,
@@ -111,7 +111,7 @@ class KoopmanKernelDTRegressor(MultiOutputMixin, RegressorMixin, BaseEstimator):
 
     def fit_explicit(self, x: trajectory, y: trajectory):
         if not hasattr(self, "base_kernel"):
-            self.base_kernel = kkr.jax.make_kernel(
+            self.base_kernel = koopcore.jax.make_kernel(
                 self.kernel_name, **self.kernel_params
             )
             
@@ -129,7 +129,7 @@ class KoopmanKernelDTRegressor(MultiOutputMixin, RegressorMixin, BaseEstimator):
             self.base_kernel, self.eigenvalues, H, self.einsum_kwargs, f_normalize
         )
         
-        invariant_gramian = jax.jit(partial(kkr.model.koopman_kernel_expl, self.base_kernel))(x.X, x.X, x.T[0], self.eigenvalues)
+        invariant_gramian = jax.jit(partial(koopcore.model.koopman_kernel_expl, self.base_kernel))(x.X, x.X, x.T[0], self.eigenvalues)
         # jitted_gramian = jax.jit(koopman_kernel["coreg"], device=jax.devices()[0])
         # invariant_gramian = jitted_gramian(x.X, x.X)
         L_op =jnp.power(self.eigenvalues[:, None], jnp.arange(H)[None, :])
@@ -164,7 +164,7 @@ class KoopmanKernelDTRegressor(MultiOutputMixin, RegressorMixin, BaseEstimator):
 
     def predict(self, X0: Array, timestamps: Union[Array, int]) -> trajectory:
         if not hasattr(self, "base_kernel"):
-            self.base_kernel = kkr.jax.make_kernel(
+            self.base_kernel = koopcore.jax.make_kernel(
                 self.kernel_name, **self.kernel_params
             )
 
@@ -181,7 +181,7 @@ class KoopmanKernelDTRegressor(MultiOutputMixin, RegressorMixin, BaseEstimator):
         ):
             self.predictor = jax.jit(
                 partial(
-                    kkr.jax.isometric_predictor,
+                    koopcore.jax.isometric_predictor,
                     X_base=self.inducing_points,
                     weights=self.isometric_weights,
                     eigvals_dt=self.eigenvalues,
@@ -237,11 +237,11 @@ class KoopmanKernelDTRegressor(MultiOutputMixin, RegressorMixin, BaseEstimator):
     
     def get_eigenvalue_normalizer(self):
         if self.normalize_eigenfunctions == "norm":
-            f_normalize = kkr.jax.normalize_eigenfunctions_by_norm
+            f_normalize = koopcore.jax.normalize_eigenfunctions_by_norm
         elif self.normalize_eigenfunctions == "step":
-            f_normalize = kkr.jax.normalize_eigenfunctions_by_steps
+            f_normalize = koopcore.jax.normalize_eigenfunctions_by_steps
         elif self.normalize_eigenfunctions == "operator":
-            f_normalize = kkr.jax.normalize_eigenfunctions_by_operator
+            f_normalize = koopcore.jax.normalize_eigenfunctions_by_operator
         else:
             raise NotImplementedError
         return f_normalize

@@ -2,8 +2,8 @@
 import jax
 import jax.numpy as jnp
 from jax.experimental.ode import odeint
-import kkr
-from kkr.auxilliary.data_classes import trajectory
+import koopcore
+from koopcore.auxilliary.data_classes import trajectory
 
 import jax.random as jr
 from numpy import savez_compressed
@@ -131,7 +131,7 @@ def sample_box(N1, _range=jnp.array([[-1., 1.], [-1., 1.]]), angle=0., PRNGKey=j
 def _construct_multiindices(
     n: int, p_bar: int, verbose: bool = False
 ):
-    from kkr.auxilliary.monomials import mono_between_next_grevlex
+    from koopcore.auxilliary.monomials import mono_between_next_grevlex
     from scipy.special import binom
     import numpy as np
 

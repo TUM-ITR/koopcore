@@ -14,11 +14,9 @@ ipython_config.py
 # Environments
 *env/
 ./*venv/
-Koopman_Kernel_Regression/
-Koopman-Kernel-Regression/
 koopcore_env/
 # Package
-Koopman_Kernel_Regression.egg-info/*
+koopcore.egg-info/*
 # algorithms
 *.alg
 *.loa
@@ -150,5 +148,5 @@ results/*
 results*/*
 *results/*
 experiments/results/
-experiments/preproduction/results/
+experiments/reproduction/results/
 data
